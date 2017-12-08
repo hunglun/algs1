@@ -65,16 +65,14 @@ public class Percolation {
         for(int i=-1;i<2;i++){
           if (row+i < 0 || col+k <0) continue;
           if (row+i > this.n-1 || col+k >this.n-1) continue;
+          if (Math.abs(i)+Math.abs(k) == 2 ) continue;
+          
           if(this.grid[row+i][col+k] && this.grid[row][col]){
             // Check what happens with union(m,m) ?
             uf.union(row*this.n+col, (row+i)*this.n+(col+k));
           }
         }
       }
-      // uf.union(row,col);
-      // uf.find(0);
-      // uf.connected(0,1);
-      // uf.count();
     }
     public boolean isOpen(int row, int col) {   // is site (row, col) open?
       row = row - 1;
