@@ -1,5 +1,10 @@
-Percolation
-Deque and randomized queues
-Collinear points
-8 Puzzles
-Kd-trees
+* DONE Percolation
+* Deque and randomized queues [%]
+- [X] create stub file
+- [ ] Deque
+- [ ] RandomizedQueue
+- [ ] Permutation test client
+
+* Collinear points
+* 8 Puzzles
+* Kd-trees
