@@ -1,7 +1,7 @@
 * DONE Percolation
-* Deque and randomized queues [%]
+* Deque and randomized queues [50%]
 - [X] create stub file
-- [ ] Deque
+- [X] Deque
 - [ ] RandomizedQueue
 - [ ] Permutation test client
 
