@@ -112,20 +112,22 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   
   // an iterator, doesn't implement remove() since it's optional
   private class ListIterator<Item> implements Iterator<Item> {
-    private Node<Item> current;
-    
+    private RandomizedQueue<Item> queue;
     public ListIterator(Node<Item> first) {
-      current = first;
+      queue = new RandomizedQueue<Item>();
+      for(Node<Item> node = first; node != null; node = node.next){
+        queue.enqueue(node.item);
+      }
+      
+      
     }
     
-    public boolean hasNext()  { return current != null;                     }
+    public boolean hasNext()  { return !queue.isEmpty();                     }
     public void remove()      { throw new UnsupportedOperationException();  }
     
     public Item next() {
       if (!hasNext()) throw new NoSuchElementException();
-      Item item = current.item;
-      current = current.next; 
-      return item;
+      return queue.dequeue();
     }
   }
   public static void main(String[] args)   // unit testing (optional)
@@ -142,7 +144,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     queue.sample();
     queue.sample();
     queue.sample();
-    
+    for (String s: queue){
+      StdOut.println("Iterator " + s );
+    }
     queue.dequeue();
     queue.dequeue();
     queue.dequeue();
