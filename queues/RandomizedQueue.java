@@ -1,21 +1,96 @@
 import java.util.Iterator;
-
+import java.util.NoSuchElementException;
 public class RandomizedQueue<Item> implements Iterable<Item> {
-    public RandomizedQueue()                 // construct an empty randomized queue
-    {}
-    public boolean isEmpty()                 // is the randomized queue empty?
-    { return false;}
-    public int size()                        // return the number of items on the randomized queue
-    { return 0;}
-    public void enqueue(Item item)           // add the item
-    {}
-    public Item dequeue()                    // remove and return a random item
-    {return null;}
-    public Item sample()                     // return a random item (but do not remove it)
-    {return null;}
-    public Iterator<Item> iterator()         // return an independent iterator over items in random order
-    {return null;}
-    public static void main(String[] args)   // unit testing (optional)
-    {}
+  private Node<Item> first;    // beginning of queue
+  private Node<Item> last;     // end of queue
+  private int n;               // number of elements on queue
+  
+  // helper linked list class
+  private static class Node<Item> {
+    private Item item;
+    private Node<Item> next;
+  }
+  
+  public RandomizedQueue()                 // construct an empty randomized queue
+  {
+    first = null;
+    last  = null;
+    n = 0;
+  }
+  /**
+   * Returns true if this queue is empty.
+   *
+   * @return {@code true} if this queue is empty; {@code false} otherwise
+   */
+  public boolean isEmpty() {
+    return first == null;
+  }
+  /**
+   * Returns the number of items in this queue.
+   *
+   * @return the number of items in this queue
+   */
+  public int size() {
+    return n;
+  }
+  
+  /**
+   * Adds the item to this queue.
+   *
+   * @param  item the item to add
+   */
+  public void enqueue(Item item) {
+    Node<Item> oldlast = last;
+    last = new Node<Item>();
+    last.item = item;
+    last.next = null;
+    if (isEmpty()) first = last;
+    else           oldlast.next = last;
+    n++;
+  }
+  
+  public Item dequeue()                    // remove and return a random item
+  {
+    if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+    
+    
+    return null;
+  }
+  public Item sample()                     // return a random item (but do not remove it)
+  {
+    return null;
+  }
+  public Item remove(){
+    throw new UnsupportedOperationException();
+  }
+  /**
+   * Returns an iterator that iterates over the items in this queue in FIFO order.
+   *
+   * @return an iterator that iterates over the items in this queue in FIFO order
+   */
+  public Iterator<Item> iterator()  {
+    return new ListIterator<Item>(first);  
+  }
+  
+  // an iterator, doesn't implement remove() since it's optional
+  private class ListIterator<Item> implements Iterator<Item> {
+    private Node<Item> current;
+    
+    public ListIterator(Node<Item> first) {
+      current = first;
+    }
+    
+    public boolean hasNext()  { return current != null;                     }
+    public void remove()      { throw new UnsupportedOperationException();  }
+    
+    public Item next() {
+      if (!hasNext()) throw new NoSuchElementException();
+      Item item = current.item;
+      current = current.next; 
+      return item;
+    }
+  }
+  public static void main(String[] args)   // unit testing (optional)
+  {}
 }
 
