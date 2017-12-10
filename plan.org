@@ -1,8 +1,8 @@
 * DONE Percolation
-* Deque and randomized queues [50%]
+* Deque and randomized queues [75%]
 - [X] create stub file
 - [X] Deque
-- [ ] RandomizedQueue
+- [X] RandomizedQueue
 - [ ] Permutation test client
 
 * Collinear points
