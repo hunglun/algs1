@@ -1,10 +1,10 @@
 * DONE Percolation
-* Deque and randomized queues [75%]
+* DONE Deque and randomized queues [100%]
 - [X] create stub file
 - [X] Deque
 - [X] RandomizedQueue
-- [ ] Permutation test client
+- [X] Permutation test client
 
-* Collinear points
+* TODO Collinear points [%]
 * 8 Puzzles
 * Kd-trees

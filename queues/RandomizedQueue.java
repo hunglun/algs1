@@ -98,7 +98,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     //    StdOut.println("Sample is " + node.item);
     return node.item;
   }
-  public Item remove(){
+  private Item remove(){
     throw new UnsupportedOperationException();
   }
   /**
