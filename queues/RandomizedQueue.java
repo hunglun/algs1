@@ -51,15 +51,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     else           oldlast.next = last;
     n++;
   }
-  private Item removeFirst(){
-    Item item = first.item;
-        first = first.next;
-        n--;
-        if (isEmpty()) last = null;   // to avoid loitering
-        StdOut.println("Random number is 0");
-        StdOut.println("Removed item is "  + item);
-        return item;
-  }
+
   public Item dequeue()                    // remove and return a random item
   {
     if (isEmpty()) throw new NoSuchElementException("Queue underflow");
@@ -67,19 +59,20 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     Node<Item> discarded;
     Node<Item> prev = null;
     int randNum = StdRandom.uniform(0,size()); // get a random number between 0 and size - 1
-    if (randNum == 0) return removeFirst();
-    // use iterator and find randNum th element in the queue
-    // remove it
+
     StdOut.println("Random number is " + randNum);
     discarded = first;
     for(Node<Item> node=first; randNum>0; node = node.next){
- //     StdOut.println(node.item);
+
       prev = node;
       discarded = node.next;
       randNum--;
     }
     
     Item item = discarded.item; 
+    if (discarded == first){
+      first = first.next;
+    }
     if (prev != null)
       prev.next = discarded.next;
     discarded.next = null;
@@ -89,7 +82,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       first = null;
     }
     
-//    StdOut.println();
+
     StdOut.println("Removed item is "  + item);
     return item;
     
