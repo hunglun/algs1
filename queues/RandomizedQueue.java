@@ -89,7 +89,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   }
   public Item sample()                     // return a random item (but do not remove it)
   {
-    return null;
+    int randNum = StdRandom.uniform(0,size()); // get a random number between 0 and size - 1
+    StdOut.println("Random number is " + randNum);
+    Node<Item> node = first;
+    for(node=first; randNum>0; node = node.next){
+      randNum--;
+    }
+    StdOut.println("Sample is " + node.item);
+    return node.item;
   }
   public Item remove(){
     throw new UnsupportedOperationException();
@@ -129,6 +136,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     queue.enqueue("2");
     queue.enqueue("3");
     queue.enqueue("4");
+    
+    queue.sample();
+    queue.sample();
+    queue.sample();
+    queue.sample();
+    queue.sample();
     
     queue.dequeue();
     queue.dequeue();
