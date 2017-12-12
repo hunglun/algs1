@@ -7,9 +7,10 @@
  *  For use on Coursera, Algorithms Part I programming assignment.
  *
  ******************************************************************************/
-
+import java.util.Arrays;
 import java.util.Comparator;
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Point implements Comparable<Point> {
 
@@ -59,8 +60,12 @@ public class Point implements Comparable<Point> {
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
-        /* YOUR CODE HERE */
-	return 0;
+       
+      if (this.x == that.x) return Double.POSITIVE_INFINITY;
+      if (this.y == that.y) return 0;
+      return (that.y - this.y)/(that.x - this.x);
+      
+
     }
 
     /**
@@ -76,9 +81,33 @@ public class Point implements Comparable<Point> {
      *         argument point
      */
     public int compareTo(Point that) {
-        /* YOUR CODE HERE */
-	return 0;
+        
+      if(this.y < that.y) return -1;
+      if(this.y > that.y) return  1;
+      
+      if(this.x < that.x) return -1;
+      if(this.x > that.x) return  1;
+      
+      return 0;
+
     }
+
+    /**
+     * Comparator class for point
+     */
+    
+    private class SlopeOrder implements Comparator<Point>
+    {
+     
+      public int compare(Point p1, Point p2)
+      {
+        Point p = new Point(x,y);
+        if (p.slopeTo(p1) > p.slopeTo(p2)) return 1;
+        if (p.slopeTo(p1) < p.slopeTo(p2)) return -1;
+        return 0;
+      }
+    } 
+
 
     /**
      * Compares two points by the slope they make with this point.
@@ -87,9 +116,7 @@ public class Point implements Comparable<Point> {
      * @return the Comparator that defines this ordering on points
      */
     public Comparator<Point> slopeOrder() {
-	
-        /* YOUR CODE HERE */
-	return null;
+      return new SlopeOrder();
     }
 
 
@@ -109,6 +136,16 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+      
+      Point origin = new Point(0,0);
+      Point p1 = new Point(1,1);
+      Point p2 = new Point(1,3);
+      Point p3 = new Point(1,2);
+      
+      Point a[] = {p1,p2,p3};
+      Arrays.sort(a,origin.slopeOrder());
+      for (Point p: a){
+        StdOut.println(p);
+      }
     }
 }
