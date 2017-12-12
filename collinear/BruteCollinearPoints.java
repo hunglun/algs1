@@ -16,17 +16,17 @@ public class BruteCollinearPoints {
     }
     // sort points array
     
-      StdOut.println("Before sorting.");
+     /* StdOut.println("Before sorting.");
     for(Point p : points) {
       StdOut.println(p);
-    }
+    }*/
     Arrays.sort(points,(new Point(0,0)).slopeOrder());
-    
+    /*
         StdOut.println("After sorting.");
     for(Point p : points) {
       StdOut.println(p);
-    }
-    
+    }*/
+   
     Point prev = null;    
     for(Point p : points) {
       if (prev != null){
@@ -48,12 +48,12 @@ public class BruteCollinearPoints {
             if(points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) 
                  &&
                points[i].slopeTo(points[j]) == points[i].slopeTo(points[l])){
-              StdOut.println("Add a new segment");
+            /*  StdOut.println("Add a new segment");
               StdOut.println(points[i]);
               StdOut.println(points[j]);
               StdOut.println(points[k]);
               StdOut.println(points[l]);
-              
+              */
               s.push(new LineSegment(points[i],points[l]));
             }
             

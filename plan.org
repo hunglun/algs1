@@ -13,5 +13,7 @@
 - [X] implement Bruteforce algoritm
 - [ ] debug Bruteforce algorithm
 - [ ] implement fast algorithm
+
+See the test report.
 * 8 Puzzles
 * Kd-trees

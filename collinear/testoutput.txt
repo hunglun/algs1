@@ -1,0 +1,244 @@
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference Point and LineSegment)
+********************************************************************************
+
+Testing correctness of BruteCollinearPoints
+*-----------------------------------------------------------
+Running 17 total tests.
+
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - no 5 (or more) points are collinear
+  - all x- and y-coordinates between 0 and 32,767
+
+Test 1: points from a file
+  * filename = input8.txt
+  * filename = equidistant.txt
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 3: (10000, 0) -> (13000, 0)
+    - reference segment 3: (10000, 0) -> (13000, 0) -> (20000, 0) -> (30000, 0)
+
+    - number of entries in student   solution: 4
+    - number of entries in reference solution: 4
+    - 1 extra entry in student solution: '(10000, 0) -> (13000, 0)'
+    - 1 missing entry in student solution: '(10000, 0) -> (13000, 0) -> (20000, 0) -> (30000, 0)'
+
+  * filename = input40.txt
+  * filename = input48.txt
+==> FAILED
+
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+  * filename = horizontal25.txt
+==> passed
+
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
+==> passed
+
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
+==> passed
+
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
+==> passed
+
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
+==> passed
+
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
+==> passed
+
+Test 5: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
+==> passed
+
+Test 6: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 3: (10000, 0) -> (13000, 0)
+    - reference segment 3: (10000, 0) -> (13000, 0) -> (20000, 0) -> (30000, 0)
+
+    - number of entries in student   solution: 4
+    - number of entries in reference solution: 4
+    - 1 extra entry in student solution: '(10000, 0) -> (13000, 0)'
+    - 1 missing entry in student solution: '(10000, 0) -> (13000, 0) -> (20000, 0) -> (30000, 0)'
+
+  * filename = input40.txt
+  * filename = input48.txt
+==> FAILED
+
+Test 7: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 3: (10000, 0) -> (13000, 0)
+    - reference segment 3: (10000, 0) -> (13000, 0) -> (20000, 0) -> (30000, 0)
+
+    - number of entries in student   solution: 4
+    - number of entries in reference solution: 4
+    - 1 extra entry in student solution: '(10000, 0) -> (13000, 0)'
+    - 1 missing entry in student solution: '(10000, 0) -> (13000, 0) -> (20000, 0) -> (30000, 0)'
+
+  * filename = input40.txt
+  * filename = input48.txt
+
+It is bad style to write code that depends on the particular format of
+the output from the toString() method, especially if your reason for
+doing so is to circumvent the public API (which intentionally does not
+provide access to the x- and y-coordinates).
+
+==> FAILED
+
+Test 8: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
+==> passed
+
+Test 9: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
+==> passed
+
+Test 10: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+    - failed after 12 operations involving BruteCollinearPoints
+    - first and last call to segments() returned different arrays
+
+    - sequence of operations was:
+          BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+          collinear.numberOfSegments() -> 2
+          mutate points[] array that was passed to constructor
+          collinear.segments()
+          collinear.numberOfSegments() -> 2
+          mutate points[] array that was passed to constructor
+          collinear.segments()
+          collinear.numberOfSegments() -> 2
+          collinear.numberOfSegments() -> 2
+          mutate points[] array that was passed to constructor
+          mutate array returned by last call to segments()
+          collinear.segments()
+
+    - failed on trial 1 of 100
+
+  * equidistant.txt
+    - failed after 9 operations involving BruteCollinearPoints
+    - first and last call to segments() returned different arrays
+
+    - sequence of operations was:
+          BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+          collinear.segments()
+          collinear.segments()
+          collinear.segments()
+          collinear.numberOfSegments() -> 4
+          collinear.segments()
+          mutate points[] array that was passed to constructor
+          mutate array returned by last call to segments()
+          collinear.segments()
+
+    - failed on trial 1 of 100
+
+==> FAILED
+
+Test 11: check that data type does not mutate the constructor argument
+  * input8.txt
+    - data type mutated the points[] array
+    - data type should have no side effects unless documented in API
+
+  * equidistant.txt
+    - data type mutated the points[] array
+    - data type should have no side effects unless documented in API
+
+==> FAILED
+
+Test 12: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
+==> passed
+
+Test 13: throws an exception if either the constructor argument is null
+         or any entry in array is null
+  * argument is null
+  * Point[] of length 10, number of null entries = 1
+  * Point[] of length 10, number of null entries = 10
+  * Point[] of length 4, number of null entries = 1
+  * Point[] of length 3, number of null entries = 1
+  * Point[] of length 2, number of null entries = 1
+  * Point[] of length 1, number of null entries = 1
+==> passed
+
+Test 14: check that the constructor throws an exception if duplicate points
+  * 50 points
+    - failed on trial 1 of 5
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+  * 25 points
+    - failed on trial 1 of 10
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+  * 5 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     5
+      1023  9997
+     14150  9993
+      4263 22748
+      1023  9997
+      4802 10803
+
+  * 4 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     4
+     27336 21410
+      6071  2564
+     28060  7484
+     28060  7484
+
+  * 3 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     3
+      8768 26905
+     22272  8600
+      8768 26905
+
+  * 2 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     2
+     23301 20392
+     23301 20392
+
+==> FAILED
+
+
+Total: 11/17 tests passed!
