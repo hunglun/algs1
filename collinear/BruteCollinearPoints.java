@@ -5,9 +5,9 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
 public class BruteCollinearPoints {
-  private int n;
-  private LineSegment segments[];
-  
+
+  private ResizingArrayStack<LineSegment> s;
+  private Point mypoints[];
   public BruteCollinearPoints(Point[] points){
     // sanity check
     if (points == null) throw new IllegalArgumentException("null points array");
@@ -20,8 +20,12 @@ public class BruteCollinearPoints {
     for(Point p : points) {
       StdOut.println(p);
     }*/
-    Arrays.sort(points); // sort by natural order.
-    Arrays.sort(points,(new Point(0,0)).slopeOrder());
+    mypoints = new Point[points.length];
+    for(int i=0; i<points.length;i++) {
+      mypoints[i] = points[i];
+    }
+    Arrays.sort(mypoints); // sort by natural order.
+    Arrays.sort(mypoints,(new Point(0,0)).slopeOrder());
     /*
     StdOut.println("After sorting.");
     for(Point p : points) {
@@ -29,7 +33,7 @@ public class BruteCollinearPoints {
     }*/
    
     Point prev = null;    
-    for(Point p : points) {
+    for(Point p : mypoints) {
       
       if (prev != null){
          if(p.compareTo(prev) == 0) throw new IllegalArgumentException("array contains repeated points");
@@ -39,45 +43,52 @@ public class BruteCollinearPoints {
       prev = p;    
     }
     
-    ResizingArrayStack<LineSegment> s = new ResizingArrayStack<LineSegment>();
+    s = new ResizingArrayStack<LineSegment>();
     // add all segments to stack.
     
-    for(int i=0;i<points.length;i++){
+    for(int i=0;i<mypoints.length;i++){
       
-      for(int j=i+1;j<points.length;j++){
+      for(int j=i+1;j<mypoints.length;j++){
         
-        for(int k=j+1;k<points.length;k++){
+        for(int k=j+1;k<mypoints.length;k++){
           
-          for(int l=k+1;l<points.length;l++){
-            if(points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) 
+          for(int l=k+1;l<mypoints.length;l++){
+            if(mypoints[i].slopeTo(mypoints[j]) == mypoints[i].slopeTo(mypoints[k]) 
                  &&
-               points[i].slopeTo(points[j]) == points[i].slopeTo(points[l])){
+               mypoints[i].slopeTo(mypoints[j]) == mypoints[i].slopeTo(mypoints[l])){
         /*      StdOut.println("Add a new segment");
               StdOut.println(points[i]);
               StdOut.println(points[j]);
               StdOut.println(points[k]);
               StdOut.println(points[l]);
-          */    
-              s.push(new LineSegment(points[i],points[l]));
+          */   
+              Point start = new Point(0,0);
+              
+              Point end = new Point(0,0);
+              start = mypoints[i];
+              end = mypoints[l];
+              
+              s.push(new LineSegment(start, end));
             }
             
           }}}
     }
     
-    // populate segments array
-    n = s.size();
-    segments = new LineSegment[n];
-    for(int i=0;i<n;i++){
-      segments[i] = s.pop();
-    }
-    assert(s.isEmpty());
+ 
     
   }    // finds all line segments containing 4 points
   
-  public           int numberOfSegments() {return n;}       // the number of line segments
+  public           int numberOfSegments() {return s.size();}       // the number of line segments
   
   public LineSegment[] segments()                // the line segments
   {
+       // populate segments array
+    
+    LineSegment segments[] = new LineSegment[s.size()];
+    int i=0;
+    for(LineSegment seg : s){
+      segments[i++] = seg;
+    }
     return segments;
   }
   
