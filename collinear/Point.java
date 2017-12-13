@@ -139,11 +139,16 @@ public class Point implements Comparable<Point> {
     public static void main(String[] args) {
       
       Point origin = new Point(0,0);
-      Point p1 = new Point(1,1);
-      Point p2 = new Point(1,3);
-      Point p3 = new Point(1,2);
+      Point p1 = new Point(10000,0);
+      Point p2 = new Point(20000,0);
+      Point p3 = new Point(13000,0);
+      Point p4 = new Point(30000,0);
       
-      Point a[] = {p1,p2,p3};
+      Point a[] = {p1,p2,p3,p4};
+      for (Point p: a){
+        StdOut.println("Before " + p);
+      }
+      Arrays.sort(a);
       Arrays.sort(a,origin.slopeOrder());
       for (Point p: a){
         StdOut.println(p);
