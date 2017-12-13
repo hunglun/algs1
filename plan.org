@@ -14,5 +14,14 @@
 - [X] debug Bruteforce algorithm
 - [X] implement fast algorithm
 - [X] improve fast algorithm
-* 8 Puzzles
+* 8 Puzzles [50%]
+- [X] create stub files
+- [X] understand the puzzle
+- [X] understand the solution
+- [X] watch the lecture videos
+- [ ] implement board class
+- [ ] debug board class
+- [ ] implement solver class
+- [ ] debug solver class
+
 * Kd-trees
