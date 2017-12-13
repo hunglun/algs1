@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.StdOut;
 public class BruteCollinearPoints {
 
   private ResizingArrayStack<LineSegment> s;
-  private Point mypoints[];
+
   public BruteCollinearPoints(Point[] points){
     // sanity check
     if (points == null) throw new IllegalArgumentException("null points array");
@@ -15,30 +15,19 @@ public class BruteCollinearPoints {
       if (p == null) throw new IllegalArgumentException("array contains null point");
     }
     // sort points array
-    
-   /* StdOut.println("Before sorting.");
-    for(Point p : points) {
-      StdOut.println(p);
-    }*/
-    mypoints = new Point[points.length];
+  
+    Point mypoints[] = new Point[points.length];
     for(int i=0; i<points.length;i++) {
       mypoints[i] = points[i];
     }
     Arrays.sort(mypoints); // sort by natural order.
     Arrays.sort(mypoints,(new Point(0,0)).slopeOrder());
-    /*
-    StdOut.println("After sorting.");
-    for(Point p : points) {
-      StdOut.println(p);
-    }*/
    
     Point prev = null;    
     for(Point p : mypoints) {
       
       if (prev != null){
          if(p.compareTo(prev) == 0) throw new IllegalArgumentException("array contains repeated points");
-       //  StdOut.println("current point " + p );
-       //  StdOut.println("previous point " + prev );
       }
       prev = p;    
     }

@@ -5,13 +5,13 @@
 - [X] RandomizedQueue
 - [X] Permutation test client
 
-* TODO Collinear points [71%]
+* TODO Collinear points [85%]
 - [X] create stub file
 - [X] watch lecture video part 1: 1h
 - [X] watch lecture video part 2: 1h
 - [X] implement Point.java
 - [X] implement Bruteforce algoritm
-- [ ] debug Bruteforce algorithm
+- [X] debug Bruteforce algorithm
 - [ ] implement fast algorithm
 
 See the test report.
