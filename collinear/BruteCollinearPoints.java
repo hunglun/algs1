@@ -30,8 +30,11 @@ public class BruteCollinearPoints {
    
     Point prev = null;    
     for(Point p : points) {
+      
       if (prev != null){
-         if(p == prev) throw new IllegalArgumentException("array contains repeated points");
+         if(p.compareTo(prev) == 0) throw new IllegalArgumentException("array contains repeated points");
+       //  StdOut.println("current point " + p );
+       //  StdOut.println("previous point " + prev );
       }
       prev = p;    
     }
@@ -78,9 +81,8 @@ public class BruteCollinearPoints {
     return segments;
   }
   
-  public static void main(String[] args) {
-    
-    // read the n points from a file
+  private static void test(String[] args) {
+   // read the n points from a file
     In in = new In(args[0]);
     int n = in.readInt();
     Point[] points = new Point[n];
@@ -106,5 +108,17 @@ public class BruteCollinearPoints {
       segment.draw();
     }
     StdDraw.show();
+  }
+  public static void main(String[] args) {
+    test(args);
+    /*Point p1 = new Point(24109,4792);
+    Point p2 = new Point(23875,27729);
+    Point p3 = new Point(21848,22151);
+    Point p4 = new Point(23875,27729);
+    Point a[] = {p1,p2,p3,p4};
+    BruteCollinearPoints algs = new BruteCollinearPoints(a);
+    */
+
+   
   }
 }
