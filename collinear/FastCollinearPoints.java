@@ -6,6 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class FastCollinearPoints {
     private ResizingArrayStack<LineSegment> s;
+    private ResizingArrayStack<Point[]> existingSegments;
    public FastCollinearPoints(Point[] points)     // finds all line segments containing 4 or more points
     {
     // sanity check
@@ -32,22 +33,46 @@ public class FastCollinearPoints {
     }
     
     s = new ResizingArrayStack<LineSegment>();
+    existingSegments = new ResizingArrayStack<Point[]>();
     // add all segments to stack.
-    
+     Point pair[];
     for(int i=0;i<mypoints.length;i++){
       // sort mypoints array based on each point's slope wrt points[i].
       Arrays.sort(mypoints,points[i].slopeOrder());
       assert(mypoints[0].compareTo(points[i]) == 0);
       // check if any 3 or more adjacent points have equal slopes wrt points[i]
+      //TODO: support segments consisting of 5 points or more.
       for(int k=1;k+1<mypoints.length;k++){
         if(points[i].slopeTo(mypoints[k]) == points[i].slopeTo(mypoints[k+1]) 
              &&
            points[i].slopeTo(mypoints[k]) == points[i].slopeTo(mypoints[k+2])){
+          
+          Point temp[] = {points[i],mypoints[k],mypoints[k+1],mypoints[k+2]};
+          Arrays.sort(temp);
           Point start = new Point(0,0);           
           Point end = new Point(0,0);
-          start = points[i];
-          end = mypoints[k+2];              
+         
+          
+          start = temp[0];
+          end = temp[temp.length - 1];   
+          // remove repeated segments
+          boolean exists = false;
+          for( Point[] p : existingSegments){
+            
+            if ((p[0].compareTo(start) == 0) && (p[1].compareTo(end) == 0)){
+              exists = true;
+              
+              break;
+            } 
+          }
+          if (exists) break;
+          // end remove repeated segments
+          
           s.push(new LineSegment(start, end));
+          pair = new Point[2];
+          pair[0] = start;
+          pair[1] = end ;
+          existingSegments.push(pair);
           break;
         }
       }
@@ -106,7 +131,7 @@ public class FastCollinearPoints {
   }
   public static void main(String[] args) {
     test(args);
-    /*
+/*    
     Point p1 = new Point(0,0);
     Point p2 = new Point(1,1);
     Point p3 = new Point(2,2);
