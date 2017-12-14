@@ -14,13 +14,13 @@
 - [X] debug Bruteforce algorithm
 - [X] implement fast algorithm
 - [X] improve fast algorithm
-* 8 Puzzles [50%]
+* 8 Puzzles [75%]
 - [X] create stub files
 - [X] understand the puzzle
 - [X] understand the solution
 - [X] watch the lecture videos
-- [ ] implement board class
-- [ ] debug board class
+- [X] implement board class
+- [X] debug board class
 - [ ] implement solver class
 - [ ] debug solver class
 

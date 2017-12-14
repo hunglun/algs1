@@ -58,8 +58,13 @@ public class Board {
     }
     return board;
   }                   // a board that is obtained by exchanging any pair of blocks
-  public boolean equals(Object y)    {
-    Board that = (Board) y;
+  @Override
+  public boolean equals(Object other)    {
+    
+    if (other == this) return true;
+    if (other == null) return false;
+    if (other.getClass() != this.getClass()) return false;
+    Board that = (Board) other;
     
     for(int i=0; i<n; i++){
       for(int j=0; j<n; j++){
