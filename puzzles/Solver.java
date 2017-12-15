@@ -2,7 +2,7 @@
 /*To detect such situations, use the fact that boards are divided into two equivalence classes with respect to reachability: (i) those that lead to the goal board and (ii) those that lead to the goal board if we modify the initial board by swapping any pair of blocks (the blank square is not a block). 
  * 
  */
-import edu.princeton.cs.algs4.LinkedQueue;
+import edu.princeton.cs.algs4.ResizingArrayStack;
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
@@ -12,7 +12,7 @@ public class Solver {
   private MinPQ<SearchNode> pqTwin;
   private SearchNode node, nodeTwin;
   
-  private LinkedQueue<Board> solution; 
+  private ResizingArrayStack<Board> solution; 
     
   public Solver(Board initial) { // find a solution to the initial board (using the A* algorithm)
     pq = new MinPQ<SearchNode>();
@@ -26,36 +26,42 @@ public class Solver {
     nodeTwin = pqTwin.delMin();
     SearchNode nextNodeTwin;
      
-    solution = new LinkedQueue<Board>();
-    solution.enqueue(initial);
+    solution = new ResizingArrayStack<Board>();
+    //solution.enqueue(initial);
     while(node.board.isGoal() == false && nodeTwin.board.isGoal() == false){
+      
+      
       for(Board nextBoard : node.board.neighbors()){
         // critical optimisation
-        if (nextBoard.equals(node.predecessor) == false){
-          nextNode = new SearchNode(nextBoard,node.board,node.moves+1);
+        if (node.predecessor == null || nextBoard.equals(node.predecessor.board) == false){
+          nextNode = new SearchNode(nextBoard,node,node.moves+1);
           pq.insert(nextNode);
         }
       }
       node = pq.delMin();
-      solution.enqueue(node.board);
+      
       
       //repeat the process for twin board
       for(Board nextBoard : nodeTwin.board.neighbors()){
         // critical optimisation
-        if (nextBoard.equals(nodeTwin.predecessor) == false){
-          nextNode = new SearchNode(nextBoard,nodeTwin.board,nodeTwin.moves+1);
+        if (nodeTwin.predecessor == null || nextBoard.equals(nodeTwin.predecessor.board) == false){
+          nextNode = new SearchNode(nextBoard,nodeTwin,nodeTwin.moves+1);
           pqTwin.insert(nextNode);
         }
       }
       nodeTwin = pqTwin.delMin();
     }
+    if(node.board.isGoal()){
+      for(SearchNode n = node; n!=null; n = n.predecessor)
+        solution.push(n.board);
+    }
   }         
   // Search Node 
   private class SearchNode implements Comparable<SearchNode> {
     Board board;
-    Board predecessor;
+    SearchNode predecessor;
     int moves;
-    public SearchNode(Board board, Board predecessor, int moves){
+    public SearchNode(Board board, SearchNode predecessor, int moves){
       
       this.board = board;
       this.predecessor = predecessor;
@@ -73,7 +79,7 @@ public class Solver {
   }          // is the initial board solvable?
 
   public int moves()                  {
-    return node.board.isGoal()?node.moves:-1;
+    return node.board.isGoal()?solution.size()-1:-1;
   }   // min number of moves to solve initial board; -1 if unsolvable
   
   public Iterable<Board> solution()  {

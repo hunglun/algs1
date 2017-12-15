@@ -64,8 +64,9 @@ public class Board {
     if (other == this) return true;
     if (other == null) return false;
     if (other.getClass() != this.getClass()) return false;
-    Board that = (Board) other;
     
+    Board that = (Board) other;
+    if (that.n != this.n) return false;
     for(int i=0; i<n; i++){
       for(int j=0; j<n; j++){
         if(tiles[i][j]!=that.tiles[i][j]) return false;
