@@ -80,8 +80,8 @@ public class Board {
   // x1,y1 indicate the empty square.
   // x2,y2 indicate a neighbouring square of the empty square.
   private boolean move(int board[][], int x1, int y1, int x2, int y2){
-    if(x2<0 || x2 > 2) return false;
-    if(y2<0 || y2 > 2) return false;
+    if(x2<0 || x2 > n-1) return false;
+    if(y2<0 || y2 > n-1) return false;
     board[x1][y1] = board[x2][y2] ;
     board[x2][y2] = 0;
     return true;
@@ -140,6 +140,13 @@ public class Board {
       {4,0,2},
       {7,6,5}
     };
+    
+    int b[][]= {
+      {1,2,3},
+      {4,5,6},
+      {7,8,0}
+    };
+    Board board2 = new Board(b);
     Board board = new Board(a);
     StdOut.println(board);
     for(Board n : board.neighbors()){
@@ -152,7 +159,7 @@ public class Board {
     assert(board.equals(new Board(board.tiles)));
     assert(board.hamming() == 5);
     assert(board.manhattan() == 10);
-    
-    
+    assert(board.isGoal() == false);
+    assert(board2.isGoal());
   }
 }
