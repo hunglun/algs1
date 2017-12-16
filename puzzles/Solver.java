@@ -15,6 +15,8 @@ public class Solver {
   private ResizingArrayStack<Board> solution; 
     
   public Solver(Board initial) { // find a solution to the initial board (using the A* algorithm)
+    if(initial == null)
+      throw new IllegalArgumentException("empty board");
     pq = new MinPQ<SearchNode>();
     pq.insert(new SearchNode(initial,null,0));  
     node = pq.delMin();
@@ -69,8 +71,8 @@ public class Solver {
     }
     
     public int compareTo(SearchNode that) {
-      if(this.moves + this.board.hamming() < that.moves + that.board.hamming()) return -1;
-      if(this.moves + this.board.hamming() > that.moves + that.board.hamming()) return  1;
+      if(this.moves + this.board.manhattan() < that.moves + that.board.manhattan()) return -1;
+      if(this.moves + this.board.manhattan() > that.moves + that.board.manhattan()) return  1;
       return 0;
     }
   }

@@ -5,6 +5,8 @@ public class Board {
   private final int[][] tiles;
   public Board(int[][] blocks)           // construct a board from an n-by-n array of blocks
   { 
+    if(blocks == null)
+      throw new IllegalArgumentException("empty block");
     n = blocks.length;
     tiles = new int[n][n];
     for(int i=0; i<blocks.length;i++){
@@ -39,7 +41,7 @@ public class Board {
     }
     return sum;
   }                // sum of Manhattan distances between blocks and goal
-  public boolean isGoal()  {return hamming()==0;}              // is this board the goal board?
+  public boolean isGoal()  {return manhattan()==0;}              // is this board the goal board?
   public Board twin() { 
    
     // create a new board
