@@ -1,14 +1,14 @@
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.SET;
+//import edu.princeton.cs.algs4.SET;
 import edu.princeton.cs.algs4.MinPQ;
-
+import java.util.TreeSet;
 public class PointSET {
-  private SET<Point2D> set;
+  private TreeSet<Point2D> set;
   public         PointSET()                               // construct an empty set of points
   {
-    set = new SET<Point2D>();
+    set = new TreeSet<Point2D>();
   }
   public           boolean isEmpty()                      // is the set empty?
   {
@@ -41,7 +41,7 @@ public class PointSET {
   {
     if (rect == null)
       throw new IllegalArgumentException("null rect");
-    SET<Point2D> result = new SET<Point2D>();
+    TreeSet<Point2D> result = new TreeSet<Point2D>();
     
     for(Point2D p : set){
        if(rect.contains(p)) result.add(p);
