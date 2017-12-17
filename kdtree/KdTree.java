@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.SET;
 public class KdTree {
   public         KdTree()                               // construct an empty set of points
   {}
@@ -25,11 +26,11 @@ public class KdTree {
   {}
   public Iterable<Point2D> range(RectHV rect)             // all points that are inside the rectangle (or on the boundary) 
   {
-    return null;
+    return new SET<Point2D>();
   }
   public           Point2D nearest(Point2D p)             // a nearest neighbor in the set to point p; null if the set is empty 
   {
-    return null;
+    return new Point2D(0,0);
   }
   public static void main(String[] args)                  // unit testing of the methods (optional)
   {

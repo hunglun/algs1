@@ -25,12 +25,12 @@
 - [X] debug solver class
 - [X] optimise solver class
 
-* TODO Kd-trees [22%]
+* TODO Kd-trees [55%]
 1. [X] understand the problem
 2. [X] create stub files
-3. [ ] watch the lecture videos (2h)
-4. [ ] understand the solution
-5. [ ] implement pointset class
+3. [X] watch the lecture videos (2h)
+4. [X] understand the solution (1h)
+5. [X] implement pointset class
 6. [ ] debug pointset class
 7. [ ] implement kdtrees class
 8. [ ] debug kdtrees class
